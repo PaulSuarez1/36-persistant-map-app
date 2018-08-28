@@ -1,5 +1,6 @@
 package com.example.paulsuarez.a36_persistant_map_app;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -48,8 +49,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void savePreferences() {
+        SharedPreferences prefs = getSharedPreferences(
+                "com.example.paulsuarez.a36_persistant_map_app",
+                Context.MODE_PRIVATE
+
+        );
+
         SharedPreferences.Editor editor = prefs.edit();
         
+
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.paulsuarez.a36_persistant_map_app;
 
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -12,7 +13,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private int CURRENT_MAP_TYPE_INDEX = 1;
+    int[] MAP_TYPES = {
+            GoogleMap.MAP_TYPE_NORMAL,
+            GoogleMap.MAP_TYPE_HYBRID,
+            GoogleMap.MAP_TYPE_TERRAIN,
+            GoogleMap.MAP_TYPE_SATELLITE
+    };
+
     private GoogleMap mMap;
+
+    private boolean isSatellite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +33,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        ButterKnife.bind(this);
+
+        if (mMap != null) {
+            loadPreferences();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        savePreferences();
+    }
+
+    public void savePreferences() {
+        SharedPreferences.Editor editor = prefs.edit();
+        
     }
 
 

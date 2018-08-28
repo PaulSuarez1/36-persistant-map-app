@@ -12,6 +12,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private int CURRENT_MAP_TYPE_INDEX = 1;
@@ -23,8 +26,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     };
 
     private GoogleMap mMap;
-
-    private boolean isSatellite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

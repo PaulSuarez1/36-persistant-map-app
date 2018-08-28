@@ -56,9 +56,53 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         );
 
         SharedPreferences.Editor editor = prefs.edit();
-        
-
+        editor.putInt("mapType", CURRENT_MAP_TYPE_INDEX);
+        editor.putFloat("lat", (float) mMap.getCameraPosition().target.latitude);
+        editor.putFloat("long", (float) mMap.getCameraPosition().target.longitude);
+        editor.putFloat("zoom", mMap.getCameraPosition().zoom);
+        editor.commit();
     }
+
+    public void loadPreferences() {
+        SharedPreferences prefs = getSharedPreferences(
+                "com.example.paulsuarez.a36_persistant_map_app",
+                Context.MODE_PRIVATE
+
+        );
+        CURRENT_MAP_TYPE_INDEX = prefs.getInt("mapType", GoogleMap.MAP_TYPE_NORMAL);
+
+        float lat = prefs.getFloat("lat", 44);
+        float longg = prefs.getFloat("long", -122);
+        float zoom = prefs.getFloat("zoom", 4);
+
+        setMapType();
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(zoom));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat, longg)));
+    }
+
+    @OnClick(R.id.toggleSatellite)
+    public void toggleSatellite() {
+        CURRENT_MAP_TYPE_INDEX++;
+        CURRENT_MAP_TYPE_INDEX = CURRENT_MAP_TYPE_INDEX % MAP_TYPES.length;
+        setMapType();
+    }
+
+    public void setMapType() {
+        mMap.setMapType(MAP_TYPES[CURRENT_MAP_TYPE_INDEX]);
+    }
+
+    @OnClick(R.id.zoomout)
+    public void zoomOut() {
+        float zoom = mMap.getCameraPosition().zoom;
+        setZoom(zoom - 1);
+    }
+
+    @OnClick(R.id.zoomin)
+    public void zoomIn() {
+        float zoom = mMap.getCameraPosition().zoom;
+        setZoom(zoom + 1);
+    }
+
 
 
     /**

@@ -103,6 +103,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setZoom(zoom + 1);
     }
 
+    public void setZoom(float zoom) {
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(zoom));
+    }
+
+    @OnClick(R.id.goToSantiago)
+    public void goToSantiago() {
+        LatLng santiago = new LatLng(33.4489, 70.6693);
+        mMap.addMarker(new MarkerOptions().position(santiago).title("Santiago"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(santiago));
+    }
 
 
     /**
